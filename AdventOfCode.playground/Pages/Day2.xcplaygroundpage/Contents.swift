@@ -18,6 +18,21 @@ struct Policy: Codable, CustomStringConvertible {
 		self.password = password
 	}
 
+	func isValid() -> Bool {
+		let charactersArray = Array(password)
+		let occurance = charactersArray.filter { (char) -> Bool in
+			if char == Character(character) {
+				return true
+			}
+			return false
+		}.count
+
+		if (lower...upper).contains(occurance) {
+			return true
+		}
+		return false
+	}
+
 	var description: String {
 		return "\nLower: \(lower), Upper:\(upper), Character: \(character), Password:\(password)"
 	}
@@ -28,4 +43,11 @@ let contentData = FileManager.default.contents(atPath: filePath!)
 let input = try! JSONDecoder().decode([Policy].self, from: contentData!)
 
 print("-------------------Part 1-------------------")
-print(input)
+
+let result = input.map { Policy -> Bool in
+	return Policy.isValid()
+}.filter{ $0 == true }.count
+
+print("Valid Passwords: \(result)")
+
+
