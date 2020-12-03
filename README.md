@@ -1,2 +1,1 @@
-# AdventOfCode
-AdventOfCode in Swift
+# AdventOfCode in Swift Playgrounds
